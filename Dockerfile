@@ -1,16 +1,12 @@
-FROM node:10-alpine
+FROM node:18-alpine
 
-RUN mkdir -p /app/node_modules && chown -R node:node /app
-
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-USER node
-
 RUN npm install
 
-COPY --chown=node:node . .
+COPY . .
 
 EXPOSE 3000
 

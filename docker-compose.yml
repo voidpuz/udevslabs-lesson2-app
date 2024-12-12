@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongo:
     image: mongo
@@ -17,29 +15,31 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nodejs1
     environment:
-      - MONGO_URL=mongodb://mongo:27017/blog
+      - MONGODB_URI=mongodb://mongo:27017/blog
       - DB_USER=admin
       - DB_PASS=admin
       - DB_HOST=mongo
       - DB_NAME=blog
     depends_on:
       - mongo
+    ports:
+      - "3000:3000"
 
   nodejs2:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nodejs2
     environment:
-      - MONGO_URL=mongodb://mongo:27017/blog
+      - MONGODB_URI=mongodb://mongo:27017/blog
       - DB_USER=admin
       - DB_PASS=admin
       - DB_HOST=mongo
       - DB_NAME=blog
     depends_on:
       - mongo
+    ports:
+      - "3001:3000"
 
   nginx:
     image: nginx
